@@ -12,3 +12,7 @@ require("nvim-tree").setup()
 vim.keymap.set("n", "<leader>e", function()
     vim.cmd("NvimTreeToggle")
 end)
+
+vim.keymap.set("n", "<leader>pv", vim.cmd.NvimTreeFocus)
+vim.keymap.set("n", "<leader>pc", vim.cmd.NvimTreeCollapse)
+
