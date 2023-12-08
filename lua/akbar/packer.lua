@@ -48,6 +48,7 @@ return require('packer').startup(function(use)
     use('nvim-tree/nvim-web-devicons')
 
     use("zbirenbaum/copilot.lua")
+    use("zbirenbaum/copilot-cmp")
 
     -- Lua
     use {

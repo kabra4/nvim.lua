@@ -48,3 +48,7 @@ end)
 vim.keymap.set("n", "<leader>w", function()
     vim.cmd("w")
 end)
+
+vim.api.nvim_set_keymap('i', '<C-s>', '<Del>', { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('n', '<C-a>', 'ggVGzz', {noremap = true, silent = true})
