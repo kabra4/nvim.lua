@@ -48,17 +48,11 @@ cmp.setup({
     formatting = lsp_zero.cmp_format(),
 
     mapping = cmp.mapping.preset.insert({
-        ["<Tab>"] = vim.schedule_wrap(function(fallback)
-            if cmp.visible() and has_words_before() then
-                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-            else
-                fallback()
-            end
-        end),
+        ["<Tab>"] = cmp.mapping.confirm({ select = true }),
         ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
         ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-        ['<C-/>'] = cmp.mapping.confirm({ select = true }),
-        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-Space>"] = cmp.mapping.complete()
+        --[[['<C-/>'] = cmp.mapping.confirm({ select = true }),]]
 
     }),
 })
@@ -66,3 +60,5 @@ cmp.setup({
 vim.diagnostic.config({
     virtual_text = true
 })
+
+vim.keymap.set("n", "<leader>vv", vim.cmd.LspRestart)

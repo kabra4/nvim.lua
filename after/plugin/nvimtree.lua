@@ -9,10 +9,7 @@ vim.opt.termguicolors = true
 require("nvim-tree").setup()
 
 
-vim.keymap.set("n", "<leader>e", function()
-    vim.cmd("NvimTreeToggle")
-end)
-
-vim.keymap.set("n", "<leader>pv", vim.cmd.NvimTreeFocus)
-vim.keymap.set("n", "<leader>pc", vim.cmd.NvimTreeCollapse)
+vim.keymap.set("n", "<leader>eo", vim.cmd.NvimTreeFindFile)
+vim.keymap.set("n", "<leader>ec", vim.cmd.NvimTreeClose)
+vim.keymap.set("n", "<leader>et", vim.cmd.NvimTreeToggle)
 
