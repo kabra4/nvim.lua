@@ -71,4 +71,8 @@ return require('packer').startup(function(use)
     use ("folke/zen-mode.nvim")
 
     use ("hrsh7th/cmp-path")
+
+    use ("Pocco81/auto-save.nvim")
+
+    use { "catppuccin/nvim", as = "catppuccin" }
 end)
