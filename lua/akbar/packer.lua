@@ -75,4 +75,6 @@ return require('packer').startup(function(use)
     use ("Pocco81/auto-save.nvim")
 
     use { "catppuccin/nvim", as = "catppuccin" }
+
+    use { 'mhartington/formatter.nvim' }
 end)
