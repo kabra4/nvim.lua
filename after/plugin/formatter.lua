@@ -19,6 +19,7 @@ require("formatter").setup({
 		scss = { prettierd },
 		markdown = { prettierd },
 		yaml = { prettierd },
+        svelte = { prettierd },
 		lua = {
 			-- luafmt
 			function()

@@ -8,6 +8,9 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
+vim.keymap.set("n", "<leader>c/", "I//<Esc>")
+vim.keymap.set("n", "<leader>c#", "I#<Esc>")
+
 vim.keymap.set("n", "<leader>vwm", function()
     require("vim-with-me").StartVimWithMe()
 end)
@@ -35,18 +38,18 @@ vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>sw", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>ss", [[:%s//gI<Left><Left><Left>]])
+
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>");
 
-vim.keymap.set("n", "<leader><leader>", function()
-    vim.cmd("so")
-end)
-vim.keymap.set("n", "<leader>w", function()
-    vim.cmd("w")
-end)
+vim.keymap.set("n", "<leader><leader>", "<cmd>so<CR>" )
+vim.keymap.set("n", "<leader>w", "<cmd>wa<CR>")
 
+vim.keymap.set("n", "<leader>nh", "<cmd>noh<CR>")
 vim.api.nvim_set_keymap('i', '<C-s>', '<Del>', { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<C-a>', 'ggVGzz', {noremap = true, silent = true})
+
