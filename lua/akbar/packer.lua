@@ -83,4 +83,7 @@ return require("packer").startup(function(use)
 
 	use({ "mhartington/formatter.nvim" })
 
+    use("lukas-reineke/indent-blankline.nvim")
+
+    use("ggandor/leap.nvim")
 end)
