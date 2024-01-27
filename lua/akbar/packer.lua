@@ -86,4 +86,6 @@ return require("packer").startup(function(use)
     use("lukas-reineke/indent-blankline.nvim")
 
     use("ggandor/leap.nvim")
+
+    use("ckolkey/ts-node-action")
 end)
