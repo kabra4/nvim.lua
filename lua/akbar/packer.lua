@@ -83,9 +83,19 @@ return require("packer").startup(function(use)
 
 	use({ "mhartington/formatter.nvim" })
 
-    use("lukas-reineke/indent-blankline.nvim")
+	use("lukas-reineke/indent-blankline.nvim")
 
-    use("ggandor/leap.nvim")
+	use("ggandor/leap.nvim")
 
-    use("ckolkey/ts-node-action")
+	use("ckolkey/ts-node-action")
+
+	use("rust-lang/rust.vim")
+
+	use("mrcjkb/rustaceanvim")
+
+	use("mfussenegger/nvim-dap")
+
+	use("saecki/crates.nvim")
+
+	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 end)

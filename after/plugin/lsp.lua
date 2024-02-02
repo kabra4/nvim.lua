@@ -1,4 +1,5 @@
 local lsp_zero = require("lsp-zero")
+local util = require("lspconfig/util")
 
 lsp_zero.on_attach(function(client, bufnr)
 	-- see :help lsp-zero-keybindings
@@ -48,22 +49,33 @@ end
 require("mason").setup({})
 require("mason-lspconfig").setup({
 	ensure_installed = {
-		"rustfmt",
 		"rust_analyzer",
-		"black",
-		"mypy",
-		"prettierd",
 		"prismals",
 		"pyright",
-		"ruff",
-		"rustywind",
-		"stylua",
 		"svelte",
 		"tailwindcss",
 		"tsserver",
 	},
 	handlers = {
 		lsp_zero.default_setup,
+		--rust_analyzer = function()
+		--require("lspconfig").rust_analyzer.setup({
+		--on_attach = lsp_zero.on_attach,
+		--capabilities = lsp_zero.capabilities,
+		--filetypes = { "rust" },
+		--root_dir = util.root_pattern("Cargo.toml"),
+		--settings = {
+		--["rust-analyzer"] = {
+		--checkOnSave = {
+		--command = "clippy",
+		--},
+		--cargo = {
+		--allFeatures = true,
+		--},
+		--},
+		--},
+		--})
+		--end,
 	},
 })
 
@@ -73,8 +85,10 @@ local cmp_select = { behavior = cmp.SelectBehavior.Select }
 cmp.setup({
 	sources = {
 		{ name = "path" },
+		{ name = "buffer" },
 		{ name = "nvim_lsp" },
 		{ name = "copilot" },
+		{ name = "crates" },
 		{ name = "nvim_lua" },
 	},
 	preselect = "item",

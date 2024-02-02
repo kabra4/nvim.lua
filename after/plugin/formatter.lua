@@ -20,24 +20,24 @@ require("formatter").setup({
 		--markdown = { prettierd },
 		--yaml = { prettierd },
 		--svelte = { prettierd },
-        typescript = {
-            require("formatter.filetypes.typescript").prettierd
-        },
-        typescriptreact = {
-            require("formatter.filetypes.typescriptreact").prettierd
-        },
-        javascript = {
-            require("formatter.filetypes.javascript").prettierd
-        },
-        javascriptreact = {
-            require("formatter.filetypes.javascriptreact").prettierd
-        },
-        json = {
-            require("formatter.filetypes.json").prettierd
-        },
-        html = {
-            require("formatter.filetypes.html").prettierd
-        },
+		typescript = {
+			require("formatter.filetypes.typescript").prettierd,
+		},
+		typescriptreact = {
+			require("formatter.filetypes.typescriptreact").prettierd,
+		},
+		javascript = {
+			require("formatter.filetypes.javascript").prettierd,
+		},
+		javascriptreact = {
+			require("formatter.filetypes.javascriptreact").prettierd,
+		},
+		json = {
+			require("formatter.filetypes.json").prettierd,
+		},
+		html = {
+			require("formatter.filetypes.html").prettierd,
+		},
 		lua = {
 			-- luafmt
 			function()
@@ -54,9 +54,12 @@ require("formatter").setup({
 				}
 			end,
 		},
-        python = {
-            require("formatter.filetypes.python").black
-        }
+		python = {
+			require("formatter.filetypes.python").black,
+		},
+		rust = {
+			require("formatter.filetypes.rust").rustfmt,
+		},
 	},
 })
 
