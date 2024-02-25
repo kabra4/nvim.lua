@@ -17,7 +17,7 @@ vim.keymap.set("n", "<leader>di", function()
 	dap.step_into()
 end, { noremap = true, silent = true })
 
-vim.keymap.set("n", "<leader>dbp", function()
+vim.keymap.set("n", "<leader>db", function()
 	dap.toggle_breakpoint()
 end, { noremap = true, silent = true })
 

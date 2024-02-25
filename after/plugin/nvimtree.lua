@@ -5,11 +5,16 @@ vim.g.loaded_netrwPlugin = 1
 -- set termguicolors to enable highlight groups
 vim.opt.termguicolors = true
 
--- empty setup using defaults
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+	-- Your existing configuration ...
 
+	actions = {
+		open_file = {
+			quit_on_open = true,
+		},
+	},
+})
 
 vim.keymap.set("n", "<leader>eo", vim.cmd.NvimTreeFindFile)
 vim.keymap.set("n", "<leader>ec", vim.cmd.NvimTreeClose)
 vim.keymap.set("n", "<leader>et", vim.cmd.NvimTreeToggle)
-

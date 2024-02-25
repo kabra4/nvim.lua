@@ -59,3 +59,7 @@ vim.api.nvim_set_keymap("n", "<leader>zc", "va{zf", { noremap = true, silent = t
 vim.api.nvim_set_keymap("n", "<leader>zp", "va(zf", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>zs", "va[zf", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>zt", "vatzf", { noremap = true, silent = true })
+
+
+vim.api.nvim_set_keymap("n", "<A-j>", ":m .+1<CR>==", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true })

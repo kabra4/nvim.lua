@@ -36,6 +36,16 @@ lsp_zero.on_attach(function(client, bufnr)
 	vim.keymap.set("i", "<C-h>", function()
 		vim.lsp.buf.signature_help()
 	end, opts)
+	vim.keymap.set("n", "gi", function()
+		vim.lsp.buf.implementation()
+	end, opts)
+	vim.keymap.set("n", "gr", function()
+		vim.lsp.buf.references()
+	end, opts)
+	vim.keymap.set("n", "gD", function()
+		vim.lsp.buf.declaration()
+	end, opts)
+	vim.keymap.set("n", "<leader>vv", vim.cmd.LspRestart)
 end)
 
 local has_words_before = function()
@@ -109,5 +119,3 @@ cmp.setup({
 vim.diagnostic.config({
 	virtual_text = true,
 })
-
-vim.keymap.set("n", "<leader>vv", vim.cmd.LspRestart)
