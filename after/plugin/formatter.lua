@@ -32,6 +32,9 @@ require("formatter").setup({
 		javascriptreact = {
 			require("formatter.filetypes.javascriptreact").prettierd,
 		},
+        svelte = {
+            require("formatter.filetypes.typescript").prettierd,
+        },
 		json = {
 			require("formatter.filetypes.json").prettierd,
 		},

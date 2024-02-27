@@ -13,6 +13,10 @@ require("nvim-tree").setup({
 			quit_on_open = true,
 		},
 	},
+	filters = {
+		dotfiles = false,
+		custom = { "^\\.git" },
+	},
 })
 
 vim.keymap.set("n", "<leader>eo", vim.cmd.NvimTreeFindFile)
