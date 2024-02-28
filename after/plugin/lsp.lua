@@ -65,6 +65,7 @@ require("mason-lspconfig").setup({
 		"svelte",
 		"tailwindcss",
 		"tsserver",
+
 	},
 	handlers = {
 		lsp_zero.default_setup,

@@ -32,9 +32,25 @@ require("formatter").setup({
 		javascriptreact = {
 			require("formatter.filetypes.javascriptreact").prettierd,
 		},
-        svelte = {
-            require("formatter.filetypes.typescript").prettierd,
-        },
+		svelte = {
+			require("formatter.filetypes.typescript").prettierd,
+		},
+		prisma = {
+			function()
+				return {
+					exe = "prettierd",
+					args = {
+						"--stdin-filepath",
+						vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)),
+						"--use-tabs",
+						"--tab-width",
+						"4",
+						"--plugin=prettier-plugin-prisma",
+					},
+					stdin = true,
+				}
+			end,
+		},
 		json = {
 			require("formatter.filetypes.json").prettierd,
 		},
