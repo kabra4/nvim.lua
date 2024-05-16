@@ -20,7 +20,6 @@ if vim.fn.has("win32") == 1 then
 end
 
 require("toggleterm").setup({
-	direction = "float",
 	shell = vim.o.shell, -- Using the shell set in your earlier script
 	direction = "float",
 	float_opts = {
