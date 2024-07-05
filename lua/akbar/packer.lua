@@ -81,7 +81,8 @@ return require("packer").startup(function(use)
 
 	use({ "catppuccin/nvim", as = "catppuccin" })
 
-	use({ "mhartington/formatter.nvim" })
+	--use({ "mhartington/formatter.nvim" })
+	use("stevearc/conform.nvim")
 
 	use("lukas-reineke/indent-blankline.nvim")
 
@@ -91,11 +92,11 @@ return require("packer").startup(function(use)
 
 	use("rust-lang/rust.vim")
 
-	use("mrcjkb/rustaceanvim")
+	--use("mrcjkb/rustaceanvim")
 
 	use("mfussenegger/nvim-dap")
 
 	use("saecki/crates.nvim")
 
-	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } })
 end)

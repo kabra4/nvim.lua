@@ -1,5 +1,27 @@
+vim.g.rustaceanvim = {
+	server = {
+		cmd = function()
+			local mason_registry = require("mason-registry")
+			local ra_binary = mason_registry.is_installed("rust-analyzer")
+					-- This may need to be tweaked, depending on the operating system.
+					and mason_registry.get_package("rust-analyzer"):get_install_path() .. "/rust-analyzer"
+				or "rust-analyzer"
+			return { ra_binary } -- You can add args to the list, such as '--log-file'
+		end,
+	},
+}
+
+vim.filetype.add({
+	extension = {
+		jinja = "jinja",
+		jinja2 = "jinja",
+		j2 = "jinja",
+	},
+})
+
 local lsp_zero = require("lsp-zero")
-local util = require("lspconfig/util")
+local nvim_lsp = require("lspconfig")
+--local util = require("lspconfig/util")
 
 lsp_zero.on_attach(function(client, bufnr)
 	-- see :help lsp-zero-keybindings
@@ -48,45 +70,73 @@ lsp_zero.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>vv", vim.cmd.LspRestart)
 end)
 
-local has_words_before = function()
-	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-		return false
-	end
-	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+lsp_zero.set_sign_icons({
+	error = "✘",
+	warn = "▲",
+	hint = "⚑",
+	info = "»",
+})
+
+--local has_words_before = function()
+--if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+--return false
+--end
+--local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+--return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+--end
+
+local configs = require("lspconfig.configs")
+if not configs.jinja_lsp then
+	configs.jinja_lsp = {
+		default_config = {
+			cmd = { vim.fn.stdpath("data") .. "/mason/bin/jinja-lsp" },
+
+			filetypes = { "html", "jinja", "rs", "css" },
+			root_dir = function(fname)
+				return "."
+			end,
+			settings = {
+				templates = "./templates",
+				backend = { "./src" },
+				lang = "rust",
+			},
+		},
+	}
 end
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
 	ensure_installed = {
 		"rust_analyzer",
+		"html",
+		"htmx",
 		"prismals",
 		"pyright",
 		"svelte",
 		"tailwindcss",
 		"tsserver",
-
+		--"jinja_lsp",
 	},
 	handlers = {
+		function(server_name)
+			require("lspconfig")[server_name].setup({})
+		end,
+		lua_ls = function()
+			local lua_opts = lsp_zero.nvim_lua_ls()
+			require("lspconfig").lua_ls.setup(lua_opts)
+		end,
+		jinja_lsp = function()
+			--local jinja_opts = lsp_zero.jinja_lsp()
+			--local capabilities =
+			--require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+			--require("lspconfig").jinja_lsp.setup({
+			--capabilities = capabilities,
+			--})
+
+			require("lspconfig").jinja_lsp.setup({})
+		end,
+		--["rust_analyzer"] = function() end, --rustaceanvim = function() end,
 		lsp_zero.default_setup,
-		--rust_analyzer = function()
-		--require("lspconfig").rust_analyzer.setup({
-		--on_attach = lsp_zero.on_attach,
-		--capabilities = lsp_zero.capabilities,
-		--filetypes = { "rust" },
-		--root_dir = util.root_pattern("Cargo.toml"),
-		--settings = {
-		--["rust-analyzer"] = {
-		--checkOnSave = {
-		--command = "clippy",
-		--},
-		--cargo = {
-		--allFeatures = true,
-		--},
-		--},
-		--},
-		--})
-		--end,
 	},
 })
 
