@@ -6,6 +6,7 @@ vim.cmd([[packadd packer.nvim]])
 return require("packer").startup(function(use)
 	-- Packer can manage itself
 	use("wbthomason/packer.nvim")
+    use { "nvim-neotest/nvim-nio" }
 
 	use({
 		"nvim-telescope/telescope.nvim",

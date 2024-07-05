@@ -148,7 +148,7 @@ cmp.setup({
 		{ name = "path" },
 		{ name = "buffer" },
 		{ name = "nvim_lsp" },
-		{ name = "copilot" },
+		--{ name = "copilot" },
 		{ name = "crates" },
 		{ name = "nvim_lua" },
 	},
