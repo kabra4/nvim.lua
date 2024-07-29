@@ -15,6 +15,6 @@ require("nvim-tree").setup({
 	},
 })
 
-vim.keymap.set("n", "<leader>eo", vim.cmd.NvimTreeFindFile)
-vim.keymap.set("n", "<leader>ec", vim.cmd.NvimTreeClose)
-vim.keymap.set("n", "<leader>et", vim.cmd.NvimTreeToggle)
+vim.keymap.set("n", "<leader>eo", vim.cmd.NvimTreeFindFile, { desc = "Open NvimTree at file location" })
+vim.keymap.set("n", "<leader>ec", vim.cmd.NvimTreeClose, { desc = "Close NvimTree" })
+vim.keymap.set("n", "<leader>et", vim.cmd.NvimTreeToggle, { desc = "Toggle NvimTree" })
