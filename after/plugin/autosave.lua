@@ -1,12 +1,19 @@
 require("auto-save").setup({
-	trigger_events = { "InsertLeave", "TextChanged" }, -- vim events that trigger auto-save. See :h events
+	enabled = true,
+
+	trigger_events = { -- See :h events
+		immediate_save = { "BufLeave", "FocusLost" }, -- vim events that trigger an immediate save
+
+		defer_save = { "InsertLeave", "TextChanged" },
+		cancel_defered_save = { "InsertEnter" }, -- vim events that cancel a pending deferred save
+	},
 	-- function that determines whether to save the current buffer or not
 	-- return true: if buffer is ok to be saved
 	-- return false: if it's not ok to be saved
 	condition = function(buf)
-        if vim.bo.ft == "harpoon" then
-            return false
-        end
+		if vim.bo.ft == "harpoon" then
+			return false
+		end
 		local fn = vim.fn
 		local utils = require("auto-save.utils.data")
 
@@ -15,5 +22,8 @@ require("auto-save").setup({
 		end
 		return false -- can't save
 	end,
-})
 
+	debounce_delay = 3000,
+
+	debug = true,
+})

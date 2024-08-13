@@ -1,26 +1,26 @@
 local which_key = require("which-key")
 
 -- Setting up which-key descriptions for LSP keybindings
-which_key.register({
-	["gd"] = { "<cmd>lua vim.lsp.buf.definition()<CR>", "Go to definition" },
-	["K"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Show hover information" },
-	["<leader>vws"] = { "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", "Search workspace symbols" },
-	["<leader>vd"] = { "<cmd>lua vim.diagnostic.open_float()<CR>", "Open diagnostic float" },
-	["[d"] = { "<cmd>lua vim.diagnostic.goto_next()<CR>", "Next diagnostic" },
-	["]d"] = { "<cmd>lua vim.diagnostic.goto_prev()<CR>", "Previous diagnostic" },
-	["<leader>vca"] = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code action" },
-	["<leader>vrr"] = { "<cmd>lua vim.lsp.buf.references()<CR>", "List references" },
-	["<leader>vrn"] = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Rename symbol" },
-	["gi"] = { "<cmd>lua vim.lsp.buf.implementation()<CR>", "Go to implementation" },
-	["gr"] = { "<cmd>lua vim.lsp.buf.references()<CR>", "List references" },
-	["gD"] = { "<cmd>lua vim.lsp.buf.declaration()<CR>", "Go to declaration" },
-	["<leader>vv"] = { "<cmd>LspRestart<CR>", "Restart LSP" },
-	["<C-h>"] = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature help in insert mode" },
-}, { mode = "n" }) -- Normal mode keybindings
+which_key.add({
+	{ "<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", desc = "Signature help in insert mode" },
+	{ "<leader>vca", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "Code action" },
+	{ "<leader>vd", "<cmd>lua vim.diagnostic.open_float()<CR>", desc = "Open diagnostic float" },
+	{ "<leader>vrn", "<cmd>lua vim.lsp.buf.rename()<CR>", desc = "Rename symbol" },
+	{ "<leader>vrr", "<cmd>lua vim.lsp.buf.references()<CR>", desc = "List references" },
+	{ "<leader>vv", "<cmd>LspRestart<CR>", desc = "Restart LSP" },
+	{ "<leader>vws", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", desc = "Search workspace symbols" },
+	{ "K", "<cmd>lua vim.lsp.buf.hover()<CR>", desc = "Show hover information" },
+	{ "[d", "<cmd>lua vim.diagnostic.goto_next()<CR>", desc = "Next diagnostic" },
+	{ "]d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", desc = "Previous diagnostic" },
+	{ "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "Go to declaration" },
+	{ "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", desc = "Go to definition" },
+	{ "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", desc = "Go to implementation" },
+	{ "gr", "<cmd>lua vim.lsp.buf.references()<CR>", desc = "List references" },
+}) -- Normal mode keybindings
 
-which_key.register({
-	["<C-h>"] = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Signature help" },
-}, { mode = "i" }) -- Insert mode keybindings
+which_key.add({
+	{ "<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", desc = "Signature help", mode = "i" },
+}) -- Insert mode keybindings
 
 -- Additional configuration options for which-key
 which_key.setup({

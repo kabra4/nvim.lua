@@ -13,6 +13,9 @@ require("nvim-tree").setup({
 			quit_on_open = true,
 		},
 	},
+	filters = {
+		dotfiles = true,
+	},
 })
 
 vim.keymap.set("n", "<leader>eo", vim.cmd.NvimTreeFindFile, { desc = "Open NvimTree at file location" })

@@ -21,6 +21,12 @@ vim.filetype.add({
 
 local lsp_zero = require("lsp-zero")
 local nvim_lsp = require("lspconfig")
+
+nvim_lsp["htmx"].setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+	filetypes = { "html", "typescriptreact", "javascriptreact", "jinja" },
+})
 --local util = require("lspconfig/util")
 
 lsp_zero.on_attach(function(client, bufnr)
@@ -85,24 +91,24 @@ lsp_zero.set_sign_icons({
 --return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
 --end
 
-local configs = require("lspconfig.configs")
-if not configs.jinja_lsp then
-	configs.jinja_lsp = {
-		default_config = {
-			cmd = { vim.fn.stdpath("data") .. "/mason/bin/jinja-lsp" },
+--local configs = require("lspconfig.configs")
+--if not configs.jinja_lsp then
+--configs.jinja_lsp = {
+--default_config = {
+--cmd = { vim.fn.stdpath("data") .. "/mason/bin/jinja-lsp" },
 
-			filetypes = { "html", "jinja", "rs", "css" },
-			root_dir = function(fname)
-				return "."
-			end,
-			settings = {
-				templates = "./templates",
-				backend = { "./src" },
-				lang = "rust",
-			},
-		},
-	}
-end
+--filetypes = { "html", "jinja", "rs", "css" },
+--root_dir = function(fname)
+--return "."
+--end,
+--settings = {
+--templates = "./templates",
+--backend = { "./src" },
+--lang = "rust",
+--},
+--},
+--}
+--end
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
@@ -115,6 +121,7 @@ require("mason-lspconfig").setup({
 		"svelte",
 		"tailwindcss",
 		"tsserver",
+		"gopls",
 		--"jinja_lsp",
 	},
 	handlers = {

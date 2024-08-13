@@ -6,7 +6,7 @@ vim.cmd([[packadd packer.nvim]])
 return require("packer").startup(function(use)
 	-- Packer can manage itself
 	use("wbthomason/packer.nvim")
-    use { "nvim-neotest/nvim-nio" }
+	use({ "nvim-neotest/nvim-nio" })
 
 	use({
 		"nvim-telescope/telescope.nvim",
@@ -78,7 +78,7 @@ return require("packer").startup(function(use)
 
 	use("hrsh7th/cmp-path")
 
-	use("Pocco81/auto-save.nvim")
+	use("okuuva/auto-save.nvim")
 
 	use({ "catppuccin/nvim", as = "catppuccin" })
 
