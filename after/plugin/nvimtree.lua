@@ -13,6 +13,10 @@ require("nvim-tree").setup({
 			quit_on_open = true,
 		},
 	},
+	view = {
+		side = "right",
+		width = 40,
+	},
 	--filters = {
 	--dotfiles = true,
 	--},
