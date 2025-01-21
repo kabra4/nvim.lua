@@ -1,24 +1,3 @@
-vim.g.rustaceanvim = {
-	server = {
-		cmd = function()
-			local mason_registry = require("mason-registry")
-			local ra_binary = mason_registry.is_installed("rust-analyzer")
-					-- This may need to be tweaked, depending on the operating system.
-					and mason_registry.get_package("rust-analyzer"):get_install_path() .. "/rust-analyzer"
-				or "rust-analyzer"
-			return { ra_binary } -- You can add args to the list, such as '--log-file'
-		end,
-	},
-}
-
-vim.filetype.add({
-	extension = {
-		jinja = "jinja",
-		jinja2 = "jinja",
-		j2 = "jinja",
-	},
-})
-
 local lsp_zero = require("lsp-zero")
 local nvim_lsp = require("lspconfig")
 
@@ -113,12 +92,9 @@ lsp_zero.set_sign_icons({
 require("mason").setup({})
 require("mason-lspconfig").setup({
 	ensure_installed = {
-		"rust_analyzer",
 		"html",
 		"htmx",
-		"prismals",
 		"pyright",
-		"svelte",
 		"tailwindcss",
 		"tsserver",
 		"gopls",
@@ -132,17 +108,6 @@ require("mason-lspconfig").setup({
 			local lua_opts = lsp_zero.nvim_lua_ls()
 			require("lspconfig").lua_ls.setup(lua_opts)
 		end,
-		jinja_lsp = function()
-			--local jinja_opts = lsp_zero.jinja_lsp()
-			--local capabilities =
-			--require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-			--require("lspconfig").jinja_lsp.setup({
-			--capabilities = capabilities,
-			--})
-
-			require("lspconfig").jinja_lsp.setup({})
-		end,
-		--["rust_analyzer"] = function() end, --rustaceanvim = function() end,
 		lsp_zero.default_setup,
 	},
 })

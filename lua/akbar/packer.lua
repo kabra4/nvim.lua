@@ -91,13 +91,13 @@ return require("packer").startup(function(use)
 
 	use("ckolkey/ts-node-action")
 
-	use("rust-lang/rust.vim")
+--	use("rust-lang/rust.vim")
 
 	--use("mrcjkb/rustaceanvim")
 
 	use("mfussenegger/nvim-dap")
 
-	use("saecki/crates.nvim")
+--	use("saecki/crates.nvim")
 
 	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } })
 end)
