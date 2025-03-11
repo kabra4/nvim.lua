@@ -31,7 +31,7 @@ lsp_zero.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "]d", function()
 		vim.diagnostic.goto_prev()
 	end, opts)
-	vim.keymap.set("n", "<leader>vca", function()
+	vim.keymap.set("n", "<leader>va", function()
 		vim.lsp.buf.code_action()
 	end, opts)
 	vim.keymap.set("n", "<leader>vrr", function()
@@ -40,9 +40,9 @@ lsp_zero.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>vrn", function()
 		vim.lsp.buf.rename()
 	end, opts)
-	vim.keymap.set("i", "<C-h>", function()
-		vim.lsp.buf.signature_help()
-	end, opts)
+	--vim.keymap.set("i", "<C-h>", function()
+		--vim.lsp.buf.signature_help()
+	--end, opts)
 	vim.keymap.set("n", "gi", function()
 		vim.lsp.buf.implementation()
 	end, opts)
@@ -96,9 +96,7 @@ require("mason-lspconfig").setup({
 		"htmx",
 		"pyright",
 		"tailwindcss",
-		"tsserver",
 		"gopls",
-		--"jinja_lsp",
 	},
 	handlers = {
 		function(server_name)
@@ -121,7 +119,7 @@ cmp.setup({
 		{ name = "buffer" },
 		{ name = "nvim_lsp" },
 		--{ name = "copilot" },
-		{ name = "crates" },
+		--{ name = "crates" },
 		{ name = "nvim_lua" },
 	},
 	preselect = "item",

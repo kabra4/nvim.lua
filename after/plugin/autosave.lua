@@ -5,7 +5,7 @@ require("auto-save").setup({
 		immediate_save = { "BufLeave", "FocusLost" }, -- vim events that trigger an immediate save
 
 		defer_save = { "InsertLeave", "TextChanged" },
-		cancel_defered_save = { "InsertEnter" }, -- vim events that cancel a pending deferred save
+		cancel_deferred_save = { "InsertEnter" }, -- vim events that cancel a pending deferred save
 	},
 	-- function that determines whether to save the current buffer or not
 	-- return true: if buffer is ok to be saved
