@@ -3,7 +3,7 @@ local which_key = require("which-key")
 -- Setting up which-key descriptions for LSP keybindings
 which_key.add({
 	--{ "<C-h>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", desc = "Signature help in insert mode" },
-	{ "<leader>vca", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "Code action" },
+	{ "<leader>va", "<cmd>lua vim.lsp.buf.code_action()<CR>", desc = "Code action" },
 	{ "<leader>vd", "<cmd>lua vim.diagnostic.open_float()<CR>", desc = "Open diagnostic float" },
 	{ "<leader>vrn", "<cmd>lua vim.lsp.buf.rename()<CR>", desc = "Rename symbol" },
 	{ "<leader>vrr", "<cmd>lua vim.lsp.buf.references()<CR>", desc = "List references" },
@@ -15,9 +15,8 @@ which_key.add({
 	{ "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", desc = "Go to declaration" },
 	{ "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", desc = "Go to definition" },
 	{ "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", desc = "Go to implementation" },
-	{ "gr", "<cmd>lua vim.lsp.buf.references()<CR>", desc = "List references" },
+	{ "gr", "<cmd>Telescope lsp_references<CR>", desc = "List references (Telescope)" },
 }) -- Normal mode keybindings
-
 
 -- Additional configuration options for which-key
 which_key.setup({
