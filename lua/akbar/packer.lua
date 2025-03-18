@@ -30,7 +30,7 @@ return require("packer").startup(function(use)
 
 	use({
 		"VonHeikemen/lsp-zero.nvim",
-		branch = "v3.x",
+		--branch = "v3.x",
 		requires = {
 			--- Uncomment these if you want to manage LSP servers from neovim
 			{ "williamboman/mason.nvim" },
@@ -84,6 +84,7 @@ return require("packer").startup(function(use)
 
 	--use({ "mhartington/formatter.nvim" })
 	use("stevearc/conform.nvim")
+	use("zapling/mason-conform.nvim")
 
 	use("lukas-reineke/indent-blankline.nvim")
 
@@ -91,13 +92,13 @@ return require("packer").startup(function(use)
 
 	use("ckolkey/ts-node-action")
 
---	use("rust-lang/rust.vim")
+	--	use("rust-lang/rust.vim")
 
 	--use("mrcjkb/rustaceanvim")
 
 	use("mfussenegger/nvim-dap")
 
---	use("saecki/crates.nvim")
+	--	use("saecki/crates.nvim")
 
 	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } })
 end)

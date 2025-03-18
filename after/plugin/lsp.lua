@@ -1,142 +1,161 @@
-local lsp_zero = require("lsp-zero")
-local nvim_lsp = require("lspconfig")
+-- Set sign column so that the layout won’t jump when diagnostics appear
+vim.opt.signcolumn = "yes"
 
-nvim_lsp["htmx"].setup({
-	capabilities = capabilities,
-	on_attach = on_attach,
-	filetypes = { "html", "typescriptreact", "javascriptreact", "jinja" },
-})
---local util = require("lspconfig/util")
+-- Add borders to hover and signatureHelp floating windows
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
-lsp_zero.on_attach(function(client, bufnr)
-	-- see :help lsp-zero-keybindings
-	-- to learn the available actions
-	lsp_zero.default_keymaps({ buffer = bufnr })
+local lsp = require("lsp-zero")
 
-	vim.keymap.set("n", "gd", function()
-		vim.lsp.buf.definition()
-	end, opts)
-	vim.keymap.set("n", "K", function()
-		vim.lsp.buf.hover()
-	end, opts)
-	vim.keymap.set("n", "<leader>vws", function()
-		vim.lsp.buf.workspace_symbol()
-	end, opts)
-	vim.keymap.set("n", "<leader>vd", function()
-		vim.diagnostic.open_float()
-	end, opts)
-	vim.keymap.set("n", "[d", function()
-		vim.diagnostic.goto_next()
-	end, opts)
-	vim.keymap.set("n", "]d", function()
-		vim.diagnostic.goto_prev()
-	end, opts)
-	vim.keymap.set("n", "<leader>va", function()
-		vim.lsp.buf.code_action()
-	end, opts)
-	vim.keymap.set("n", "<leader>vrr", function()
-		vim.lsp.buf.references()
-	end, opts)
-	vim.keymap.set("n", "<leader>vrn", function()
-		vim.lsp.buf.rename()
-	end, opts)
-	--vim.keymap.set("i", "<C-h>", function()
-		--vim.lsp.buf.signature_help()
-	--end, opts)
-	vim.keymap.set("n", "gi", function()
-		vim.lsp.buf.implementation()
-	end, opts)
-	vim.keymap.set("n", "gr", function()
-		vim.lsp.buf.references()
-	end, opts)
-	vim.keymap.set("n", "gD", function()
-		vim.lsp.buf.declaration()
-	end, opts)
-	vim.keymap.set("n", "<leader>vv", vim.cmd.LspRestart)
-end)
+-- Ensure these LSP servers are installed (Mason will take care of it).
+--lsp.ensure_installed({
+--"html",
+--"htmx",
+--"pyright",
+--"tailwindcss",
+--"gopls",
+--"ts_ls",
+--})
 
-lsp_zero.set_sign_icons({
-	error = "✘",
-	warn = "▲",
-	hint = "⚑",
-	info = "»",
-})
-
---local has_words_before = function()
---if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
---return false
---end
---local line, col = unpack(vim.api.nvim_win_get_cursor(0))
---return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
---end
-
---local configs = require("lspconfig.configs")
---if not configs.jinja_lsp then
---configs.jinja_lsp = {
---default_config = {
---cmd = { vim.fn.stdpath("data") .. "/mason/bin/jinja-lsp" },
-
---filetypes = { "html", "jinja", "rs", "css" },
---root_dir = function(fname)
---return "."
---end,
---settings = {
---templates = "./templates",
---backend = { "./src" },
---lang = "rust",
---},
---},
---}
---end
-
-require("mason").setup({})
+-- Setup Mason and mason-lspconfig.
+require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = {
 		"html",
 		"htmx",
 		"pyright",
 		"tailwindcss",
+		"lua_ls",
 		"gopls",
+		"ts_ls",
 	},
 	handlers = {
 		function(server_name)
 			require("lspconfig")[server_name].setup({})
 		end,
-		lua_ls = function()
-			local lua_opts = lsp_zero.nvim_lua_ls()
-			require("lspconfig").lua_ls.setup(lua_opts)
-		end,
-		lsp_zero.default_setup,
 	},
 })
 
+-- (Optional) If you need to configure custom settings with lspconfig,
+-- you can grab the default cmp capabilities early:
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+local lspconfig = require("lspconfig")
+
+-- Example: Configure the htmx language server with extra filetypes.
+lspconfig.htmx.setup({
+	capabilities = capabilities,
+	filetypes = { "html", "typescriptreact", "javascriptreact", "jinja" },
+})
+
+-- Configure lua_ls (Neovim Lua) using lsp-zero’s helper.
+lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
+
+-- Global LspAttach autocmd to define keymaps once an LSP client attaches.
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function(event)
+		local opts = { buffer = event.buf }
+		-- The migration docs suggest these bindings:
+		vim.keymap.set("n", "K", function()
+			vim.lsp.buf.hover()
+		end, opts)
+		vim.keymap.set("n", "gd", function()
+			vim.lsp.buf.definition()
+		end, opts)
+		vim.keymap.set("n", "gD", function()
+			vim.lsp.buf.declaration()
+		end, opts)
+		vim.keymap.set("n", "gi", function()
+			vim.lsp.buf.implementation()
+		end, opts)
+		vim.keymap.set("n", "go", function()
+			vim.lsp.buf.type_definition()
+		end, opts)
+		vim.keymap.set("n", "gr", function()
+			vim.lsp.buf.references()
+		end, opts)
+		vim.keymap.set("n", "gs", function()
+			vim.lsp.buf.signature_help()
+		end, opts)
+
+		-- Additional keybindings (as in the migration docs)
+		vim.keymap.set("n", "<F2>", function()
+			vim.lsp.buf.rename()
+		end, opts)
+		vim.keymap.set({ "n", "x" }, "<F3>", function()
+			vim.lsp.buf.format({ async = true })
+		end, opts)
+		vim.keymap.set("n", "<F4>", function()
+			vim.lsp.buf.code_action()
+		end, opts)
+
+		-- You can add any extra mappings here (for instance, workspace symbols,
+		-- diagnostic floating windows, etc.) that you used in your v3 config.
+		vim.keymap.set("n", "<leader>vv", vim.cmd.LspRestart, opts)
+	end,
+})
+
+-- Customize diagnostic display
+vim.diagnostic.config({
+	virtual_text = true,
+})
+
+-- Optionally set custom signs for diagnostics
+lsp.set_sign_icons({
+	error = "✘",
+	warn = "▲",
+	hint = "⚑",
+	info = "»",
+})
+
+-- Setup nvim-cmp for autocompletion and snippet expansion.
 local cmp = require("cmp")
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
+local has_words_before = function()
+	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+		return false
+	end
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	if col == 0 then
+		return false
+	end
+	local text = vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]
+	return text:match("^%s*$") == nil
+end
 
 cmp.setup({
 	sources = {
 		{ name = "path" },
 		{ name = "buffer" },
 		{ name = "nvim_lsp" },
-		--{ name = "copilot" },
-		--{ name = "crates" },
+		{ name = "copilot" },
 		{ name = "nvim_lua" },
 	},
-	preselect = "item",
 	completion = {
-		completeopt = "menu,menuone,noinsert",
+		completeopt = "menu,preview,menuone,noinsert,noselect",
 	},
-	formatting = lsp_zero.cmp_format(),
-
+	window = {
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
+	},
+	formatting = lsp.cmp_format(),
 	mapping = cmp.mapping.preset.insert({
 		["<Tab>"] = cmp.mapping.confirm({ select = true }),
 		["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
 		["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
 		["<C-Space>"] = cmp.mapping.complete(),
-		--[[['<C-/>'] = cmp.mapping.confirm({ select = true }),]]
+		["<CR>"] = cmp.mapping.confirm({ select = false }),
 	}),
+	sorting = {
+		priority_weight = 2,
+		comparators = {
+			require("copilot_cmp.comparators").prioritize,
+		},
+	},
 })
 
-vim.diagnostic.config({
-	virtual_text = true,
-})
+-- (Optional) Setup mason-conform if you’re using it
+require("mason-conform").setup()
+
+-- Finalize lsp-zero’s setup
+lsp.setup()

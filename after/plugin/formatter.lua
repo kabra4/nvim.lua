@@ -1,9 +1,7 @@
 require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
-		-- Conform will run multiple formatters sequentially
 		python = { "isort", "black" },
-		-- Use a sub-list to run only the first available formatter
 		javascript = { "prettierd", "rustywind" },
 		javascriptreact = { "prettierd", "rustywind" },
 		typescript = { "prettierd", "rustywind" },
@@ -20,12 +18,12 @@ require("conform").setup({
 	},
 })
 
---require("conform").formatters.prettierd = {
---prepend_args = { "--tab-width", "4" },
----- The base args a
----- re { "-filename", "$FILENAME" } so the final args will be
----- { "-i", "2", "-filename", "$FILENAME" }
---}
+require("conform").formatters.prettierd = {
+	prepend_args = { "--tab-width", "4" },
+	-- The base args a
+	-- re { "-filename", "$FILENAME" } so the final args will be
+	-- { "-i", "2", "-filename", "$FILENAME" }
+}
 
 vim.keymap.set("n", "<leader>f", function()
 	require("conform").format()

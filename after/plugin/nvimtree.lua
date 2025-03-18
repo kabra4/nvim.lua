@@ -20,6 +20,7 @@ require("nvim-tree").setup({
 	--filters = {
 	--dotfiles = true,
 	--},
+    filters = { custom = { "^.git$" } }
 })
 
 vim.keymap.set("n", "<leader>eo", vim.cmd.NvimTreeFindFile, { desc = "Open NvimTree at file location" })
