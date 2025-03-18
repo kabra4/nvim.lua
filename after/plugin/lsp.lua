@@ -22,7 +22,6 @@ require("mason").setup()
 require("mason-lspconfig").setup({
 	ensure_installed = {
 		"html",
-		"htmx",
 		"pyright",
 		"tailwindcss",
 		"lua_ls",
@@ -43,10 +42,10 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require("lspconfig")
 
 -- Example: Configure the htmx language server with extra filetypes.
-lspconfig.htmx.setup({
-	capabilities = capabilities,
-	filetypes = { "html", "typescriptreact", "javascriptreact", "jinja" },
-})
+--lspconfig.htmx.setup({
+--capabilities = capabilities,
+--filetypes = { "html", "typescriptreact", "javascriptreact", "jinja" },
+--})
 
 -- Configure lua_ls (Neovim Lua) using lsp-zero’s helper.
 lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
